@@ -2,12 +2,28 @@ package com.crud.tasks.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Getter
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Entity(name = "TASKS")
 public class Task {
 
+    @Id
+    @GeneratedValue
     private Long id;
+
+    @Column(name = "NAME")
     private String title;
+
+    @Column(name = "DESCRIPTION")
     private String content;
+
+
 }
