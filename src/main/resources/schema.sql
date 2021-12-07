@@ -1,7 +1,7 @@
-CREATE SEQUENCE hibernate_sequence START 1;
+CREATE SEQUENCE hibernate_sequence EXISTS START 1;
 
-CREATE TABLE tasks IF NOT EXISTS (
+CREATE TABLE tasks (
     id serial PRIMARY KEY,
-    title VARCHAR(255)
-    content VARCHAR(255)
+    name VARCHAR(255),
+    description VARCHAR(255)
 )
