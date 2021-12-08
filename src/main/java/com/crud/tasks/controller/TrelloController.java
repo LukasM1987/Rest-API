@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class TrelloController {
 
-    private static final String nameFragment = "kodilla";
+    private static final String NAME_FRAGMENT = "kodilla";
 
     private final TrelloClient trelloClient;
 
@@ -25,7 +25,7 @@ public class TrelloController {
 
         List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
         trelloBoards.forEach(trelloBoardDto -> {
-            Pattern patternFragment = Pattern.compile(nameFragment);
+            Pattern patternFragment = Pattern.compile(NAME_FRAGMENT);
             Matcher matchFragment = patternFragment.matcher(trelloBoardDto.getName().toLowerCase());
             if (trelloBoardDto.getId() != null && trelloBoardDto.getName() != null && matchFragment.find()) {
                 System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName());
