@@ -22,20 +22,8 @@ public class TrelloController {
     private final TrelloClient trelloClient;
 
     @GetMapping("getTrelloBoards")
-    public void getTrelloBoards() {
-
-        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
-        trelloBoards.forEach(trelloBoardDto -> {
-            Pattern patternFragment = Pattern.compile(NAME_FRAGMENT);
-            Matcher matchFragment = patternFragment.matcher(trelloBoardDto.getName().toLowerCase());
-            if (trelloBoardDto.getId() != null && trelloBoardDto.getName() != null && matchFragment.find()) {
-                System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName());
-            }
-            System.out.println("This board contains lists: ");
-            trelloBoardDto.getLists().forEach(trelloList -> {
-                System.out.println(trelloList.getName() + " - " + trelloList.getId() + " - " + trelloList.isClosed());
-            });
-        });
+    public List<TrelloBoardDto> getTrelloBoards() {
+        return trelloClient.getTrelloBoards();
     }
 
     @PostMapping("createTrelloCard")
