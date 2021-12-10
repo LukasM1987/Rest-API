@@ -12,12 +12,9 @@ public class TrelloListDto {
     @JsonProperty("id")
     private String id;
 
-    //@JsonProperty("name")
-    //private String name;
+    @JsonProperty("name")
+    private String name;
 
-    //@JsonProperty("closed")
-    //private boolean isClosed;
-
-    @JsonProperty("badges")
-    private Badges badges;
+    @JsonProperty("closed")
+    private boolean isClosed;
 }
