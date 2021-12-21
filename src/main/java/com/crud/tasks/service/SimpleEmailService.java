@@ -31,13 +31,10 @@ public class SimpleEmailService {
     private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
-        //Optional<String> toCc = Optional.ofNullable(mail.getToCc());
-        //toCc.ifPresent(mailMessage::setCc);
-
-        if (mail.getToCc() != null) {
-            mailMessage.setCc(mail.getToCc());
+        mail.getToCc().ifPresent(cc -> {
+            mailMessage.setCc(cc);
             log.info("Mail with toCc: " + mail.getToCc());
-        }
+        });
 
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
