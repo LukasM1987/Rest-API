@@ -102,21 +102,30 @@ class TrelloFacadeTest {
     @Test
     void createCardTest() {
         //Given
-        TrelloCardDto trelloCardDto = new TrelloCardDto("card", "card description", "card pos", "1");
-        TrelloCard trelloCard = new TrelloCard("card", "card description", "card pos", "1");
-        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto("1", "card", "123");
+        TrelloCardDto trelloCardDto = new TrelloCardDto();
+        trelloCardDto.setName("card name");
+        trelloCardDto.setDescription("card description");
+        trelloCardDto.setPos("card pos");
+        trelloCardDto.setListId("1");
+
+        TrelloCard trelloCard = new TrelloCard("card name", "card description", "card pos", "1");
+
+        CreatedTrelloCardDto createdTrelloCardDtoMock = new CreatedTrelloCardDto();
+        createdTrelloCardDtoMock.setId("1");
+        createdTrelloCardDtoMock.setName("card name");
+        createdTrelloCardDtoMock.setShortUrl("123");
 
         when(trelloMapper.mapToCard(trelloCardDto)).thenReturn(trelloCard);
         when(trelloMapper.mapToCardDto(trelloCard)).thenReturn(trelloCardDto);
-        when(trelloService.createTrelloCard(trelloCardDto)).thenReturn(createdTrelloCardDto);
+        when(trelloService.createTrelloCard(trelloCardDto)).thenReturn(createdTrelloCardDtoMock);
 
         //When
-        CreatedTrelloCardDto result = trelloFacade.createCard(trelloCardDto);
+        CreatedTrelloCardDto createdTrelloCardDto = trelloFacade.createCard(trelloCardDto);
 
         //Then
-        Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result.getId()).isEqualTo("1");
-        Assertions.assertThat(result.getName()).isEqualTo("card");
-        Assertions.assertThat(result.getShortUrl()).isEqualTo("123");
+        Assertions.assertThat(createdTrelloCardDto).isNotNull();
+        Assertions.assertThat(createdTrelloCardDto.getId()).isEqualTo("1");
+        Assertions.assertThat(createdTrelloCardDto.getName()).isEqualTo("card name");
+        Assertions.assertThat(createdTrelloCardDto.getShortUrl()).isEqualTo("123");
     }
 }
