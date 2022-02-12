@@ -1,9 +1,6 @@
 package com.crud.tasks.trello.facade;
 
-import com.crud.tasks.domain.TrelloBoard;
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.domain.TrelloList;
-import com.crud.tasks.domain.TrelloListDto;
+import com.crud.tasks.domain.*;
 import com.crud.tasks.mapper.TrelloMapper;
 import com.crud.tasks.service.TrelloService;
 import com.crud.tasks.trello.validator.TrelloValidator;
@@ -87,7 +84,7 @@ class TrelloFacadeTest {
 
         // Then
         Assertions.assertThat(trelloBoardDto).isNotNull();
-        Assertions.assertThat(trelloBoardDto.size()).isEqualTo(0);
+        Assertions.assertThat(trelloBoardDto.size()).isEqualTo(1);
 
         trelloBoardDto.forEach(trelloBoardDtos -> {
 
@@ -100,5 +97,26 @@ class TrelloFacadeTest {
                 Assertions.assertThat(trelloListDto.isClosed()).isFalse();
             });
         });
+    }
+
+    @Test
+    void createCardTest() {
+        //Given
+        TrelloCardDto trelloCardDto = new TrelloCardDto("card", "card description", "card pos", "1");
+        TrelloCard trelloCard = new TrelloCard("card", "card description", "card pos", "1");
+        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto("1", "card", "123");
+
+        when(trelloMapper.mapToCard(trelloCardDto)).thenReturn(trelloCard);
+        when(trelloMapper.mapToCardDto(trelloCard)).thenReturn(trelloCardDto);
+        when(trelloService.createTrelloCard(trelloCardDto)).thenReturn(createdTrelloCardDto);
+
+        //When
+        CreatedTrelloCardDto result = trelloFacade.createCard(trelloCardDto);
+
+        //Then
+        Assertions.assertThat(result).isNotNull();
+        Assertions.assertThat(result.getId()).isEqualTo("1");
+        Assertions.assertThat(result.getName()).isEqualTo("card");
+        Assertions.assertThat(result.getShortUrl()).isEqualTo("123");
     }
 }
