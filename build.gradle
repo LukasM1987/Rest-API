@@ -43,6 +43,8 @@ dependencies {
 
 	//providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
+	testImplementation 'com.google.code.gson:gson'
+
 }
 
 test {
