@@ -28,6 +28,8 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 	runtimeOnly 'mysql:mysql-connector-java'
 	//runtimeOnly group: 'org.postgresql', name: 'postgresql', version: '42.3.1'
 
