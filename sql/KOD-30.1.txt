@@ -1,18 +1,12 @@
 DROP PROCEDURE IF EXISTS GetUserById;
-DROP FUNCTION IF EXISTS UserNotExist;
 DELIMITER $$
-CREATE FUNCTION UserNotExist() RETURNS VARCHAR(20) DETERMINISTIC
-    BEGIN
-        DECLARE result VARCHAR(20) DEFAULT 'User not exist!';
-        RETURN result;
-    END $$
 CREATE PROCEDURE GetUserById(id INT)
 BEGIN
     IF id > 0 THEN
         SELECT FIRSTNAME, LASTNAME FROM READERS WHERE READER_ID = id;
     ELSE
-        SELECT UserNotExist();
+        SELECT 'User does not exist' FROM READERS LIMIT 1;
     END IF;
 END $$
 DELIMITER ;
-CALL GetUserById(1);
+CALL GetUserById(0);
